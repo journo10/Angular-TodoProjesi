@@ -1,0 +1,112 @@
+<div class="container">
+  <div class="row">
+    <div class="col-5 mx-auto m-2 p-2">
+      <h3 class="bg-success tex-white p-3">
+        {{ getName() }}
+      </h3>
+
+      <!-- 1.YOL -->
+      <!-- <div class="input-group mb-3">
+        <input
+          #txtItem
+          (keyup.enter)="getAdd(txtItem.value); txtItem.value = ''"
+          type="text"
+          class="form-control"
+        />
+
+        <button
+          (click)="getAdd(txtItem.value); txtItem.value = ''"
+          class="btn btn-outline-success"
+        >
+          Add
+        </button>
+      </div> -->
+
+      <!-- 2.YOL -->
+      <div class="input-group mb-3">
+        <input
+         [(ngModel)]="inputText"
+          (keyup.enter)="getAdd(); "
+          type="text"
+          class="form-control"
+        />
+
+        <button
+         [class]="getBtnClasses()"
+          (click)="getAdd();"
+          class="btn"
+        >
+          Add
+        </button>
+      </div>
+
+      {{ message }}
+
+      <div class="form-check mb-3">
+        <label for="displayAll" class="form-check-label">Tümünü Göster</label>
+        <input
+          [(ngModel)]="displayAll"
+          type="checkbox"
+          class="form-check-input"
+          id="displayAll"
+        />
+      </div>
+
+      <div class="my-2">{{ displayCount() }} görev tamamlandı.</div>
+
+      <div
+        class="alert alert-danger"
+        *ngIf="getItems().length == 0; else itemsTable"
+      >
+        Tüm görevler tamamlandı.
+      </div>
+
+      <ng-template #itemsTable>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>Description</th>
+              <th>Action</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of getItems(); let i = index" [class]='{"bg-success":item.action,"bg-warning":!item.action}' >
+              <td>{{ i + 1 }}</td>
+              <td>{{ item.description }}</td>
+              <td>
+                <!-- İf Bloğu  **ngIf -->
+                <div *ngIf="item.action">Yes</div>
+                <div *ngIf="!item.action">No</div>
+
+                <!--  Switch Bloğu *ngSwitch -->
+                <!-- <div [ngSwitch]="item.action">
+               <div *ngSwitchCase="true">Yes</div>
+               <div *ngSwitchCase="false">No</div>
+               <div *ngSwitchDefault>No</div>
+               </div> -->
+
+                <!--  İf-Else Bloğu  -->
+                <!-- <div *ngIf='item.action;else noTemplate'>Yes</div>
+               <ng-template #noTemplate>No</ng-template> -->
+
+                <!-- İf-Then Bloğu -->
+                <!-- <div *ngIf='item.action;then noTemplate'>Burası gösterilmez.</div>
+                <ng-template #noTemplate>No</ng-template> -->
+
+                <!-- İf-Then-Else Bloğu -->
+                <!-- <div *ngIf='item.action;then yesTemplate;else noTemplate'>Burası gösterilmez.</div>
+                <ng-template #yesTemplate>Yes</ng-template>
+                <ng-template #noTemplate>No</ng-template> -->
+              </td>
+              <td>
+                <input [(ngModel)]="item.action" type="checkbox" />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </ng-template>
+    </div>
+  </div>
+</div>
